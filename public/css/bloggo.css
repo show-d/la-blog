@@ -1,0 +1,228 @@
+body {
+    padding-top: 20px;
+    padding-bottom: 40px;
+}
+
+/* Custom container */
+.container-narrow {
+    margin: 0 auto;
+    max-width: 700px;
+    _width: 700px;
+    padding: 10px;
+}
+
+.container-narrow > hr {
+    margin: 30px 0;
+}
+
+/* Main index-list message and sign up button */
+.jumbotron {
+    margin: 60px 0;
+    text-align: center;
+}
+
+.jumbotron h1 {
+    font-size: 72px;
+    line-height: 1;
+}
+
+.jumbotron .btn {
+    font-size: 21px;
+    padding: 14px 24px;
+}
+
+/* Supporting index-list content */
+.index-list {
+    margin: 60px 0;
+}
+
+.index-list p + h4 {
+    margin-top: 28px;
+}
+
+
+.blog-post-meta {
+    margin-bottom: 20px;
+}
+
+a.tag {
+    color: #0088cc;
+    font-size: 12px;
+    font-weight: normal;
+    background: #fff;
+    border-radius: 5px;
+    padding: 2px 3px;
+}
+a.tag:hover {
+    color: #fff;
+    background: #333;
+}
+
+a.category {
+    color: #0088cc;
+    font-size: 12px;
+    font-weight: normal;
+    background: #fff;
+    border-radius: 5px;
+    padding: 2px 3px;
+}
+a.category:hover {
+    color: #fff;
+    background: #333;
+}
+
+a.title {
+    color: #3b3b3b
+}
+
+.red {
+    color: #a50e0e
+}
+
+.badge-c {
+    padding: 3px 10px 3px 10px;
+    margin: 0 10px 20px 0;
+}
+
+.badge-c[href] {
+    background-color: #fff;
+    color: #459dc9;
+    border: 1px solid;
+    border-radius: 5px;
+    margin-bottom: 5px!important;
+    display: block;
+    text-align: center;
+    float: left;
+}
+
+.badge-cat {
+    padding: 3px 10px 3px 10px;
+    margin: 0 10px 20px 0;
+    display: block;
+}
+
+.badge-cat[href] {
+    background-color: #fff;
+    color: #006dcc;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    margin-bottom: 5px!important;
+    display: block;
+    text-align: center;
+}
+
+.badge-cat[href]:hover {
+    background-color: #5eb1fa;
+    color: #fff;
+    text-decoration:none;
+}
+
+.date {
+    margin-right: 20px;
+    display: block;
+    float: left;
+    color: #afabab;
+}
+
+.navbar-search {
+    margin-right: 20px;
+}
+
+.top-nav {
+    text-align: right;
+    clear: both;
+    position: relative;
+    display: block;
+}
+
+.top-nav ul {
+    list-style: none;
+}
+
+.top-nav li {
+    list-style: none;
+    float: right;
+    line-height: 20px;
+    margin-left: 10px;
+}
+
+.li-bo li {
+    margin-bottom: 5px;
+}
+
+
+hr {
+    clear: both
+}
+hr.dash{border:1px dashed #ccc}
+hr.dotted{border:1px dotted #ccc}
+
+.content-container h1{font-size: 22px;}
+.content-container h2{font-size: 19px;}
+.content-container h3{font-size: 18px;}
+.content-container h4{font-size: 18px;}
+.content-container h5{font-size: 18px;}
+.content-container h6{font-size: 18px;}
+
+.content {
+    font-size: 18px;
+    line-height: 32px;
+}
+#formComment{display: none}
+.comment-user-region{font-size: 12px;color:#7a7676;}
+p.comment-block{padding:0;margin:0;}
+
+.add-edit input[type="radio"] {
+    margin-right: 3px;
+}
+
+.add-edit .btn-mini {
+    margin-right: 15px;
+}
+.category-textarea{width:60%;height: 150px;}
+
+#captchaImg{cursor: pointer;}
+#scrollToTop{cursor: pointer;text-decoration: none;color:#0088cc}
+.feed a{color:#08c}
+.feed a:hover{color:#3b3b3b}
+
+.project{background: #f8f8f5;border-radius: 8px;padding:2px;}
+.project:hover{background: #000;color:#f8f8f5;}
+
+.hearts {
+    color: #c71530
+}
+
+pre {
+    padding: 0px;
+    margin: 0px;
+    background-color: none;
+    border: 1px solid #ccc;
+    -webkit-border-radius: 0px;
+    -moz-border-radius: 0px;
+    border-radius: 0px;
+}
+
+.footer {
+    color: #afabab
+}
+
+/*-----------navigation-----------*/
+.h-nav-container {
+    display: block;
+    position: relative;
+    background: #f9f8f8;
+    width: 100%;
+    border: 1px solid #ccc;
+    margin: 0 0 36px 0;
+    z-index: 999;
+}
+.h-nav-container .title{font-weight: bold;padding:5px;border-bottom: 1px solid #ccc;font-size: 15px;}
+.h-nav-container ul {padding: 5px 0 5px 0;list-style: none}
+.h-nav-container ul li{list-style: none}
+.h-nav-container li a {cursor: pointer;font-size: 15px;    padding-right: 35px;}
+.h-nav-container .nav-tool {text-align: right}
+.h-nav-container .nav-tool span {margin: 5px 5px 5px 0;}
+/*-----------navigation-----------*/
+
+svg{width:1em;height:1em}
