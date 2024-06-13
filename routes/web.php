@@ -35,20 +35,21 @@ Route::get('/category/{catName}', [CategoryController::class, 'listFilter']);
 Route::get('/tags', [TagsController::class, 'index']);
 Route::get('/tags/{tagName}', [TagsController::class, 'list']);
 Route::get('/about', [AboutController::class, 'about']);
+Route::post("/comment/addEditCommentAction/{commentId?}", [CommentController::class, 'addEditCommentAction']);
 
 $cfAdminPath = env('ADMIN_PATH');
 Route::get("/$cfAdminPath/signIn", [AdminMemberController::class, 'signIn']);
 Route::post("/$cfAdminPath/signInAction", [AdminMemberController::class, 'signInAction']);
-Route::post("/signOutAction", [AdminMemberController::class, 'signOutAction']);
 Route::get("/$cfAdminPath/addEdit/{contentId?}", [AdminContentController::class, 'addEdit']);
 Route::post("/$cfAdminPath/addEditAction/{contentId?}", [AdminContentController::class, 'addEditAction']);
-    Route::post("/$cfAdminPath/deleteContentAction", [AdminContentController::class, 'deleteContentAction']);
+Route::post("/$cfAdminPath/deleteContentAction", [AdminContentController::class, 'deleteContentAction']);
 Route::get("/$cfAdminPath/addEditCategory/{catName?}", [AdminCategoryController::class, 'addEditCategory']);
 Route::post("/$cfAdminPath/addEditCategoryAction/{catName?}", [AdminCategoryController::class, 'addEditCategoryAction']);
-Route::post("/comment/addEditCommentAction/{commentId?}", [CommentController::class, 'addEditCommentAction']);
 Route::post("/$cfAdminPath/deleteCommentAction", [AdminCommentController::class, 'deleteCommentAction']);
+
+Route::post('/signOut', [CaptchaController::class, 'signOut'])->name('signOut');
+Route::post("/signOutAction", [AdminMemberController::class, 'signOutAction']);
 
 Route::get('/message/{message?}/{bool?}', [CommonController::class, 'showMessagePage'])->name('common.message');
 Route::get('/captcha', [CaptchaController::class, 'generateCaptcha'])->name('captcha');
-Route::post('/signOut', [CaptchaController::class, 'signOut'])->name('signOut');
 Route::post('/convertToPinyin', [CommonController::class, 'convertToPinyin'])->name('convertToPinyin');
