@@ -53,7 +53,7 @@
                     <label class="btn btn-mini" for="btnradio2">草稿</label>
 
                     <input type="radio" class="btn-check" name="status" id="btnradio3" autocomplete="off" value="99"
-                           @if($content->status == 99)  checked @endif />
+                           @if($content->status == 99 || $content->content_id<=0)  checked @endif />
                     <label class="btn btn-mini btn-success" for="btnradio3">通过</label>
                 </div>
                 </p>
@@ -107,7 +107,6 @@
         // 切换语言
         const LANG = location.href.indexOf('lang=en') > 0 ? 'en' : 'zh-CN'
         E.i18nChangeLanguage(LANG)
-
         window.editor = E.createEditor({
             selector: '#editor-text-area',
             html: `{!! $content->content !!}`,
@@ -116,7 +115,7 @@
                 MENU_CONF: {
                     uploadImage: {
                         fieldName: 'file',
-                        server: '/{{$cfAdminPath}}/uploadFile/'
+                        server: '/{{$cfAdminPath}}/uploadFileAction'
                     }
                 },
                 onChange(editor) {

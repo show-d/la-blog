@@ -54,7 +54,7 @@
             <ul>
                 <li>
                     <input type="hidden" id="hidBloggoPath" value="{{$cfAdminPath}}">
-                    <form action="/signOutAction" method="post">
+                    <form action="/{{$cfAdminPath}}/signOutAction" method="post">
                         <input type="submit" class="btn btn-info" name="doSubmit" value="退出"/>
                         @csrf
                     </form>

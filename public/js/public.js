@@ -157,20 +157,20 @@ function waitRedirect(url, milSec) {
     }, 1000)
 }
 
-function dateParse(cls,fullFmt) {
+function dateParse(cls, fullFmt) {
     //date parse
     var $date = $(cls)
     if ($date.val() !== undefined) {
         $date.each(function () {
             var $this = $(this)
             var timestamp = $.trim($this.text())
-            if(isNaN(timestamp)){
+            if (isNaN(timestamp)) {
                 return false
             }
 
-            if (fullFmt){
-                $(this).text(timeConverter(timestamp,'yyyyMMddHHmmss'))
-            }else{
+            if (fullFmt) {
+                $(this).text(timeConverter(timestamp, 'yyyyMMddHHmmss'))
+            } else {
                 $(this).text(timeConverter(timestamp))
             }
 
@@ -178,8 +178,8 @@ function dateParse(cls,fullFmt) {
     }
 }
 
-String.prototype.replaceAll = function(s1,s2){
-    return this.replace(new RegExp(s1,"gm"),s2)
+String.prototype.replaceAll = function (s1, s2) {
+    return this.replace(new RegExp(s1, "gm"), s2)
 }
 
 function scrollToElement(ele) {
@@ -191,7 +191,7 @@ function scrollToElement(ele) {
 (function f($) {
 
     //date parse
-    dateParse('.date',false)
+    dateParse('.date', false)
 
     //nav selected
     var pathName = location.pathname
@@ -238,18 +238,18 @@ var checkEmptyTxt = function (ele) {
 }
 
 function handleCaptcha() {
-    $('#captchaImg').attr('src', '/captcha?r='+Math.random())
-/*    $.getJSON('/captcha/', function (d) {
-        if (d.code !== '0') {
-            alert(d.message)
-            return false
-        }
+    $('#captchaImg').attr('src', '/captcha?r=' + Math.random())
+    /*    $.getJSON('/captcha/', function (d) {
+            if (d.code !== '0') {
+                alert(d.message)
+                return false
+            }
 
-        var data = d.data
-        $('[name="captchaCode"]').val('')
-        $('#captchaImg').attr('src', data.captchaImgB64)
-        $('#captchaId').val(data.captchaId)
-    })*/
+            var data = d.data
+            $('[name="captchaCode"]').val('')
+            $('#captchaImg').attr('src', data.captchaImgB64)
+            $('#captchaId').val(data.captchaId)
+        })*/
 }
 
 $('#captchaImg').click(function () {
@@ -258,3 +258,9 @@ $('#captchaImg').click(function () {
 
 
 var _token = $('input[name="_token"]').val();
+/*$.ajaxSetup({
+    headers: { "_token": _token},
+    data: {
+        "_token": _token
+    }
+});*/

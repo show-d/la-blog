@@ -20,7 +20,34 @@ class CommonController extends Controller
         return response()->Json([
             "code" => 0,
             "message" => '',
-            "data" =>  $pinyinText,
+            "data" => $pinyinText,
+        ]);
+
+    }
+
+    public function uploadFileAction(Request $request): JsonResponse
+    {
+        if (!$request->hasFile('file')) {
+            return response()->json([
+                "errno" => -1,
+                "data" => [
+                    "url" => '',
+                    "alt" => '',
+                ]
+            ]);
+        }
+
+        $path = public_path('uploads');
+        $fileName = time().'.'.$request->file->extension();
+        $request->file->move($path, $fileName);
+
+        //$file = $request->input('file');
+        return response()->json([
+            "errno" => 0,
+            "data" => [
+                "url" => "/uploads/$fileName",
+                "alt" => $fileName,
+            ]
         ]);
 
     }

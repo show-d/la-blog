@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\AdminContentController;
 use App\Http\Controllers\Admin\AdminCategoryController;
 use App\Http\Controllers\Admin\AdminCommentController;
 
+use App\Http\Middleware\VerifyCsrfToken;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,19 +39,23 @@ Route::get('/tags/{tagName}', [TagsController::class, 'list']);
 Route::get('/about', [AboutController::class, 'about']);
 Route::post("/comment/addEditCommentAction/{commentId?}", [CommentController::class, 'addEditCommentAction']);
 
-$cfAdminPath = env('ADMIN_PATH');
-Route::get("/$cfAdminPath/signIn", [AdminMemberController::class, 'signIn']);
-Route::post("/$cfAdminPath/signInAction", [AdminMemberController::class, 'signInAction']);
-Route::get("/$cfAdminPath/addEdit/{contentId?}", [AdminContentController::class, 'addEdit']);
-Route::post("/$cfAdminPath/addEditAction/{contentId?}", [AdminContentController::class, 'addEditAction']);
-Route::post("/$cfAdminPath/deleteContentAction", [AdminContentController::class, 'deleteContentAction']);
-Route::get("/$cfAdminPath/addEditCategory/{catName?}", [AdminCategoryController::class, 'addEditCategory']);
-Route::post("/$cfAdminPath/addEditCategoryAction/{catName?}", [AdminCategoryController::class, 'addEditCategoryAction']);
-Route::post("/$cfAdminPath/deleteCommentAction", [AdminCommentController::class, 'deleteCommentAction']);
-
-Route::post('/signOut', [CaptchaController::class, 'signOut'])->name('signOut');
-Route::post("/signOutAction", [AdminMemberController::class, 'signOutAction']);
-
 Route::get('/message/{message?}/{bool?}', [CommonController::class, 'showMessagePage'])->name('common.message');
 Route::get('/captcha', [CaptchaController::class, 'generateCaptcha'])->name('captcha');
 Route::post('/convertToPinyin', [CommonController::class, 'convertToPinyin'])->name('convertToPinyin');
+
+$cfAdminPath = env('ADMIN_PATH');
+Route::get("/$cfAdminPath/signIn", [AdminMemberController::class, 'signIn']);
+Route::post("/$cfAdminPath/signInAction", [AdminMemberController::class, 'signInAction']);
+Route::post("/$cfAdminPath/signOut", [CaptchaController::class, 'signOut'])->name('signOut');
+Route::post("/$cfAdminPath/signOutAction", [AdminMemberController::class, 'signOutAction']);
+
+//管理员权限验证
+Route::middleware('authAdmin')->group(function () use($cfAdminPath){
+    Route::get("/$cfAdminPath/addEdit/{contentId?}", [AdminContentController::class, 'addEdit']);
+    Route::post("/$cfAdminPath/addEditAction/{contentId?}", [AdminContentController::class, 'addEditAction']);
+    Route::post("/$cfAdminPath/deleteContentAction", [AdminContentController::class, 'deleteContentAction']);
+    Route::get("/$cfAdminPath/addEditCategory/{catName?}", [AdminCategoryController::class, 'addEditCategory']);
+    Route::post("/$cfAdminPath/addEditCategoryAction/{catName?}", [AdminCategoryController::class, 'addEditCategoryAction']);
+    Route::post("/$cfAdminPath/deleteCommentAction", [AdminCommentController::class, 'deleteCommentAction']);
+    Route::post("/$cfAdminPath/uploadFileAction", [CommonController::class, 'uploadFileAction'])->withoutMiddleware(VerifyCsrfToken::class);
+});
