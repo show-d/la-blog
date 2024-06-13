@@ -60,7 +60,7 @@
                     </form>
                 </li>
                 <li>
-                    <button class="btn">欢迎, <a href="/{{$cfAdminPath}}">{{ $cfMember->user_name }}</a>
+                    <button class="btn">欢迎, <a>{{ $cfMember->user_name }}</a>
                     </button>
                 </li>
                 <li>
