@@ -12,7 +12,7 @@ class Controller extends BaseController
 {
     use AuthorizesRequests, ValidatesRequests;
 
-    protected const DefaultPageSize = 10;
+    protected const DefaultPageSize = 5;
 
     public function showMessagePage($message = '无消息', $success = true, $url = "", $seconds = 3): View
     {

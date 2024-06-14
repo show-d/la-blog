@@ -10,5 +10,7 @@
 ---
 
 演示地址：https://la-blog.cozof.com  
+admin  
+123456  
 
 由于是练习Lavarel技术，且时间较为仓促，所以很多地方还不完善，可能有很多bug。请多包涵。
