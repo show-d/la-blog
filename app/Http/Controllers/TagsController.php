@@ -37,6 +37,7 @@ class TagsController extends Controller
     {
         $contentList = Content::where('status', 99)
             ->where('keyword', 'like', "%{$tagName}%")
+            ->orderByDesc('input_time')
             ->paginate(parent::DefaultPageSize);
 
         return view("frontend.index", ['contentList' => $contentList]);
