@@ -24,7 +24,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $cfUnixTimestamp = time();
         $cfRandom = time();
-        $cfIsAdmin = false;
+        //$cfIsAdmin = false;
         $cfAdminPath = env('ADMIN_PATH');
         $siteName = env('SITE_NAME');
         $cfYear = date('Y', time());

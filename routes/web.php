@@ -1,7 +1,7 @@
 <?php
-
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\TestController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\ContentController;
 use App\Http\Controllers\CategoryController;
@@ -28,6 +28,8 @@ use App\Http\Middleware\VerifyCsrfToken;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+Route::get('/test', [TestController::class, 'index']);
+Route::get('/test/index2', [TestController::class, 'index2']);
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/field/{htmlName}', [ContentController::class, 'detail']);
@@ -57,5 +59,5 @@ Route::middleware('authAdmin')->group(function () use($cfAdminPath){
     Route::get("/$cfAdminPath/addEditCategory/{catName?}", [AdminCategoryController::class, 'addEditCategory']);
     Route::post("/$cfAdminPath/addEditCategoryAction/{catName?}", [AdminCategoryController::class, 'addEditCategoryAction']);
     Route::post("/$cfAdminPath/deleteCommentAction", [AdminCommentController::class, 'deleteCommentAction']);
-    Route::post("/$cfAdminPath/uploadFileAction", [CommonController::class, 'uploadFileAction'])->withoutMiddleware(VerifyCsrfToken::class);
+    Route::post("/$cfAdminPath/uploadFileActionHt", [CommonController::class, 'uploadFileAction'])->withoutMiddleware(VerifyCsrfToken::class);
 });

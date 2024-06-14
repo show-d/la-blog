@@ -33,10 +33,10 @@ class TagsController extends Controller
         ]);
     }
 
-    public function list($tagName=''):View
+    public function list($tagName = ''): View
     {
         $contentList = Content::where('status', 99)
-            ->where('keyword','like',"%{$tagName}%")
+            ->where('keyword', 'like', "%{$tagName}%")
             ->paginate(parent::DefaultPageSize);
 
         return view("frontend.index", ['contentList' => $contentList]);

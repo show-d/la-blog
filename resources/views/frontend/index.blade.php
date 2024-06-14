@@ -16,59 +16,61 @@
             @foreach( $contentList as $v)
 
                 <h4><a href="/field/{{$v->html_name}}" class="title">{{ $v->title }}</a></h4>
+                <div>{!! substr(strip_tags($v->content) ,0,150)  !!}... <a href="/field/{{$v->html_name}}" sytle="font-size:0.8em">查看详情</a>
+                </div>
                 <p class="blog-post-meta">
                     <span class="date">{{ $v-> publish_time }}</span>
 
-                    {{--/*<i class="icon-remove icon-tags"></i>*/--}}
-                    {{-- range $index, $tag := cfSplit .Keyword "," --}}
-                    <a href="/tags/{{-- $tag --}}" class="tag">{{-- $tag --}}</a>
-                {{-- end --}}
+                    <i class="icon-remove icon-tags"></i>
+                    @foreach(explode(',',$v-> keyword) as $tag)
+                        <a href="/tags/{{ $tag}}" class="tag">{{ $tag}}</a>
+            @endforeach
 
-                @if($cfIsAdmin)
-                    <div class="top-nav li-bo">
-                        <ul>
-                            <li>
-                                <form action="/{{$cfAdminPath}}/deleteContentAction" method="post">
-                                    <button type="submit" class="span uneditable-input btn btnDeleteContent">
-                                        <i class="icon-remove icon-remove"></i>
-                                    </button>
-                                    @csrf
-                                    <input type="hidden" name="content_id" value="{{$v->content_id}}"/>
-                                </form>
-                            </li>
-                            <li>
-                                <button type="button" class="btn btnEdit" data-contentId="{{$v->content_id}}"/>
-                                <i class="icon-remove icon-edit"></i>
-                                编辑
+            @if($cfIsAdmin)
+                <div class="top-nav li-bo">
+                    <ul>
+                        <li>
+                            <form action="/{{$cfAdminPath}}/deleteContentAction" method="post">
+                                <button type="submit" class="span uneditable-input btn btnDeleteContent">
+                                    <i class="icon-remove icon-remove"></i>
                                 </button>
-                            </li>
-                            <li>
-                                <label for="" class="btn ">
-                                    <i class="icon-remove icon-circle-arrow-up"></i>
-                                    {{$v->hits}}
+                                @csrf
+                                <input type="hidden" name="content_id" value="{{$v->content_id}}"/>
+                            </form>
+                        </li>
+                        <li>
+                            <button type="button" class="btn btnEdit" data-contentId="{{$v->content_id}}"/>
+                            <i class="icon-remove icon-edit"></i>
+                            编辑
+                            </button>
+                        </li>
+                        <li>
+                            <label for="" class="btn ">
+                                <i class="icon-remove icon-circle-arrow-up"></i>
+                                {{$v->hits}}
+                            </label>
+                        </li>
+                        <li>
+                            @if($v->status == -1)
+                                <label class="span uneditable-input btn btn-danger">
+                                    trash
                                 </label>
-                            </li>
-                            <li>
-                                @if($v->status == -1)
-                                    <label class="span uneditable-input btn btn-danger">
-                                        trash
-                                    </label>
-                                @elseif($v->status == 1)
-                                    <label class="span uneditable-input btn ">
-                                        <i class="icon-remove icon-bell"></i>草稿
-                                    </label>
-                                @else
-                                    @if($v->publish_time >$cfUnixTimestamp)
-                                        <label class="span uneditable-input btn btn-warning">待发布</label>
-                                    @endif
+                            @elseif($v->status == 1)
+                                <label class="span uneditable-input btn ">
+                                    <i class="icon-remove icon-bell"></i>草稿
+                                </label>
+                            @else
+                                @if($v->publish_time >$cfUnixTimestamp)
+                                    <label class="span uneditable-input btn btn-warning">待发布</label>
                                 @endif
-                            </li>
+                            @endif
+                        </li>
 
-                        </ul>
-                    </div>
-                @endif
+                    </ul>
+                </div>
+            @endif
 
-                <hr>
+            <hr>
             @endforeach
 
 
