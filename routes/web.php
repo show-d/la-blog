@@ -30,6 +30,9 @@ use App\Http\Middleware\VerifyCsrfToken;
 */
 Route::get('/test', [TestController::class, 'index']);
 Route::get('/test/index2', [TestController::class, 'index2']);
+Route::get('/test/r/{id?}', function (int $id=null){
+    //return "pure.$id";
+});
 
 Route::get('/', [IndexController::class, 'index']);
 Route::get('/field/{htmlName}', [ContentController::class, 'detail']);
@@ -46,18 +49,29 @@ Route::get('/captcha', [CaptchaController::class, 'generateCaptcha'])->name('cap
 Route::post('/convertToPinyin', [CommonController::class, 'convertToPinyin'])->name('convertToPinyin');
 
 $cfAdminPath = env('ADMIN_PATH');
+
+/*
 Route::get("/$cfAdminPath/signIn", [AdminMemberController::class, 'signIn']);
 Route::post("/$cfAdminPath/signInAction", [AdminMemberController::class, 'signInAction']);
-Route::post("/$cfAdminPath/signOut", [CaptchaController::class, 'signOut'])->name('signOut');
 Route::post("/$cfAdminPath/signOutAction", [AdminMemberController::class, 'signOutAction']);
+*/
+
+//同一控制器，使用分组的方式简化
+Route::controller(AdminMemberController::class)->prefix($cfAdminPath)->group(function ()  {
+    Route::get("/signIn",  'signIn');
+    Route::post("/signInAction",  'signInAction');
+    Route::post("/signOutAction",  'signOutAction');
+});
+
+$var = 'test params';
 
 //管理员权限验证
-Route::middleware('authAdmin')->group(function () use($cfAdminPath){
-    Route::get("/$cfAdminPath/addEdit/{contentId?}", [AdminContentController::class, 'addEdit']);
-    Route::post("/$cfAdminPath/addEditAction/{contentId?}", [AdminContentController::class, 'addEditAction']);
-    Route::post("/$cfAdminPath/deleteContentAction", [AdminContentController::class, 'deleteContentAction']);
-    Route::get("/$cfAdminPath/addEditCategory/{catName?}", [AdminCategoryController::class, 'addEditCategory']);
-    Route::post("/$cfAdminPath/addEditCategoryAction/{catName?}", [AdminCategoryController::class, 'addEditCategoryAction']);
-    Route::post("/$cfAdminPath/deleteCommentAction", [AdminCommentController::class, 'deleteCommentAction']);
-    Route::post("/$cfAdminPath/uploadFileActionHt", [CommonController::class, 'uploadFileAction'])->withoutMiddleware(VerifyCsrfToken::class);
+Route::middleware('authAdmin')->prefix($cfAdminPath)->group(function () use($var){
+    Route::get("/addEdit/{contentId?}", [AdminContentController::class, 'addEdit']);
+    Route::post("/addEditAction/{contentId?}", [AdminContentController::class, 'addEditAction']);
+    Route::post("/deleteContentAction", [AdminContentController::class, 'deleteContentAction']);
+    Route::get("/addEditCategory/{catName?}", [AdminCategoryController::class, 'addEditCategory']);
+    Route::post("/addEditCategoryAction/{catName?}", [AdminCategoryController::class, 'addEditCategoryAction']);
+    Route::post("/deleteCommentAction", [AdminCommentController::class, 'deleteCommentAction']);
+    Route::post("/uploadFileActionHt", [CommonController::class, 'uploadFileAction'])->withoutMiddleware(VerifyCsrfToken::class);
 });

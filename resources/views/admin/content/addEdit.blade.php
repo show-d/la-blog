@@ -3,6 +3,15 @@
 @section('title',$content->content_id>0?'编辑文章':'发表博文')
 
 @section("body")
+    @if($errors->any())
+        <div class="error">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row-fluid index-list">
         <div class="span12 add-edit">
 

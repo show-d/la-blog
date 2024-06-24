@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\CommonController;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ContentRequest;
 use App\Models\Category;
 use App\Models\Comment;
 use App\Models\Content;
@@ -17,6 +18,19 @@ class AdminContentController extends Controller
 {
     public function addEdit(int $contentId = 0): View
     {
+        $cc = Content::first();
+        $cc->title = 'aaa';
+        $fresh = $cc->fresh();
+
+        var_dump($cc->title, $fresh->title); //aaa ,oracle
+        echo '<hr/>';
+
+        $cc = Content::first();
+        $cc->title = 'aaa';
+        $refresh = $cc->refresh();
+
+        var_dump($cc->title,$refresh);
+
         $content = Content::where('content_id', $contentId)->firstOrNew();
         $catList = Category::where(['status' => 99, 'is_page' => 0])->get();
         return View('admin.content.addEdit', [
@@ -25,7 +39,7 @@ class AdminContentController extends Controller
         ]);
     }
 
-    public function addEditAction(Request $request): View
+    public function addEditAction(ContentRequest $request): View
     {
         $operateTipStr = '编辑';
         $formData = $request->all();
@@ -79,10 +93,11 @@ class AdminContentController extends Controller
         }
 
         try {
-            DB::transaction(function () use ($contentId) {
-                DB::update("update blog_content set status = -1 where content_id=?", [$contentId]);
+            $dbPre = env('DB_PREFIX', '');
+            DB::transaction(function () use ($dbPre, $contentId) {
+                DB::update("update ${$dbPre}content set status = -1 where content_id=?", [$contentId]);
 
-                DB::delete("update blog_comment set status = -1 where content_id=?", [$contentId]);
+                DB::delete("update ${$dbPre}comment set status = -1 where content_id=?", [$contentId]);
             });
 
             return parent::showMessagePage("删除成功", true, '/');
