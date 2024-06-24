@@ -36,12 +36,21 @@ class Member extends Authenticatable
         'remember_token',
     ];
 
-    /**
-     * The attributes that should be cast.
-     *
-     * @var array<string, string>
-     */
+
+    public $timestamps = true;
+
+    const CREATED_AT = 'create_time';
+    const UPDATED_AT = null;
+
+    // 覆盖模型的日期格式方法，不使用任何格式化
+    public function getDateFormat()
+    {
+        return 'U'; // U 代表 Unix 时间戳
+    }
+
+    // 确保模型将时间戳作为整数存储和检索
     protected $casts = [
-        'email_verified_at' => 'datetime',
+        'create_time' => 'integer',
+        //'updated_at' => 'integer',
     ];
 }
